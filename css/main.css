@@ -15,6 +15,7 @@ html {
   color: #222;
   font-size: 1em;
   line-height: 1.4;
+  font-family: "Poppins", sans-serif;
 }
 
 /*
@@ -261,3 +262,42 @@ textarea {
   }
 }
 
+/* Custom styles */
+
+.wrapper {
+  display: flex;
+
+  margin: 0 auto;
+  padding: 0 70px;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+
+  background: rgb(38, 38, 38);
+  background: linear-gradient(
+    90deg,
+    rgba(38, 38, 38, 1) 0%,
+    rgba(36, 36, 36, 1) #242424%,
+    rgba(35, 35, 35, 1) #232323%,
+    rgba(12, 12, 12, 1) #0C0C0C%
+  );
+}
+
+.timer {
+  width: 40%;
+  padding-top: 10rem;
+  padding-bottom: 15rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.timer__time {
+  font-size: 64px;
+  color: white;
+}
