@@ -2,52 +2,84 @@ const startBtn = document.querySelector("#btn-start");
 const stopBtn = document.querySelector("#btn-stop");
 
 class Counter {
-  constructor() {
-    this.startTime = new Date();
-    this.endTime = new Date(this.startTime.getTime() + 25 * 60 * 1000);
-    this.intervalID = null;
-  }
+  #startTime = new Date();
+  #endTime = new Date(this.startTime.getTime() + 25 * 60 * 1000);
+  #intervalID = null;
+  #stopTime = null;
+
+  constructor() {}
 
   counterDown() {
     this.intervalID = setInterval(() => {
-      const secondsRemain = this.remainingSeconds;
-      const minutes = Math.floor(secondsRemain / 60);
-      const seconds = secondsRemain % 60;
+      const secondsLeft = this.secondsLeft;
+      const minutes = Math.floor(secondsLeft / 60);
+      const seconds = secondsLeft % 60;
 
-      console.log("minutes", minutes);
-      console.log("seconds", seconds);
+      console.log(`${minutes}:${seconds}`);
     }, 1000);
   }
 
   stop() {
+    this.stopTime = new Date();
     clearInterval(this.intervalID);
   }
 
-  get start() {
-    return this.startTime;
+  continue(currentTime) {
+    const pauseTime = currentTime - this.stopTime;
+    this.endTime = new Date(this.endTime.getTime() + pauseTime);
+    this.counterDown();
   }
 
-  get end() {
-    return this.endTime;
+  get startTime() {
+    return this.#startTime;
+  }
+
+  get endTime() {
+    return this.#endTime;
+  }
+
+  get stopTime() {
+    return this.#stopTime;
   }
 
   get currentTime() {
     return new Date();
   }
 
-  get remainingSeconds() {
-    const timeRemaining = this.end.getTime() - this.currentTime.getTime();
+  get secondsLeft() {
+    const timeRemaining = this.endTime.getTime() - this.currentTime.getTime();
     const secondsRemaining = Math.round(timeRemaining / 1000);
 
     return secondsRemaining;
+  }
+
+  get intervalID() {
+    return this.#intervalID;
+  }
+
+  set stopTime(currentTime) {
+    this.#stopTime = currentTime;
+  }
+
+  set intervalID(intervalID) {
+    this.#intervalID = intervalID;
+  }
+
+  set endTime(endTime) {
+    this.#endTime = endTime;
   }
 }
 
 let timer;
 
 startBtn.addEventListener("click", () => {
-  timer = new Counter();
-  timer.counterDown();
+  if (timer) {
+    const currentTime = new Date();
+    timer.continue(currentTime);
+  } else {
+    timer = new Counter();
+    timer.counterDown();
+  }
 });
 
 stopBtn.addEventListener("click", () => {
