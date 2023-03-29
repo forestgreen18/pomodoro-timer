@@ -1,5 +1,6 @@
 const startBtn = document.querySelector("#btn-start");
 const stopBtn = document.querySelector("#btn-stop");
+const resetBtn = document.querySelector("#btn-reset");
 
 class Counter {
   #startTime = new Date();
@@ -9,7 +10,7 @@ class Counter {
 
   constructor() {}
 
-  counterDown() {
+  #counterDown() {
     this.intervalID = setInterval(() => {
       const secondsLeft = this.secondsLeft;
       const minutes = Math.floor(secondsLeft / 60);
@@ -19,15 +20,25 @@ class Counter {
     }, 1000);
   }
 
+  start() {
+    this.#counterDown();
+  }
+
   stop() {
     this.stopTime = new Date();
+    clearInterval(this.intervalID);
+  }
+
+  reset() {
+    this.startTime = null;
+    this.endTime = null;
     clearInterval(this.intervalID);
   }
 
   continue(currentTime) {
     const pauseTime = currentTime - this.stopTime;
     this.endTime = new Date(this.endTime.getTime() + pauseTime);
-    this.counterDown();
+    this.#counterDown();
   }
 
   get startTime() {
@@ -57,6 +68,10 @@ class Counter {
     return this.#intervalID;
   }
 
+  set startTime(startTime) {
+    this.#startTime = startTime;
+  }
+
   set stopTime(currentTime) {
     this.#stopTime = currentTime;
   }
@@ -73,15 +88,19 @@ class Counter {
 let timer;
 
 startBtn.addEventListener("click", () => {
-  if (timer) {
+  if (timer?.startTime) {
     const currentTime = new Date();
     timer.continue(currentTime);
   } else {
     timer = new Counter();
-    timer.counterDown();
+    timer.start();
   }
 });
 
 stopBtn.addEventListener("click", () => {
   timer.stop();
+});
+
+resetBtn.addEventListener("click", () => {
+  timer.reset();
 });
