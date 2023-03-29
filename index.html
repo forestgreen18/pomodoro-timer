@@ -14,6 +14,7 @@
     <link rel="manifest" href="site.webmanifest" />
     <link rel="apple-touch-icon" href="icon.png" />
 
+    <link rel="stylesheet" href="css/variables.css" />
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/main.css" />
 
@@ -24,17 +25,25 @@
     <main>
       <div class="wrapper">
         <section class="timer">
-          <span class="timer__time" id="time">25:00</span>
-          <div class="timer__buttons">
-            <button class="timer__button time__button-start" id="btn-start">
-              Start
-            </button>
-            <button class="timer__button time__button-stop" id="btn-stop">
-              Stop
-            </button>
-            <button class="timer__button time__button-reset" id="btn-reset">
-              Reset
-            </button>
+          <div class="timer__box">
+            <div class="timer__time" id="time">
+              <span class="timer__time-digit" id="minutes-decimal">2</span>
+              <span class="timer__time-digit" id="minutes-ones">5</span>
+              <span class="timer__time-digit" id="time-separator">:</span>
+              <span class="timer__time-digit" id="seconds-decimal">0</span>
+              <span class="timer__time-digit" id="seconds-ones">0</span>
+            </div>
+            <div class="timer__buttons">
+              <button class="timer__button time__button-start" id="btn-start">
+                Start
+              </button>
+              <button class="timer__button time__button-stop" id="btn-stop">
+                Stop
+              </button>
+              <button class="timer__button time__button-reset" id="btn-reset">
+                Reset
+              </button>
+            </div>
           </div>
         </section>
       </div>
