@@ -4,11 +4,13 @@ const resetBtn = document.querySelector("#btn-reset");
 
 class Counter {
   #startTime = new Date();
-  #endTime = new Date(this.startTime.getTime() + 25 * 60 * 1000);
+  #endTime;
   #intervalID = null;
   #stopTime = null;
 
-  constructor() {}
+  constructor(minutes = 25) {
+    this.#endTime = new Date(this.#startTime.getTime() + minutes * 60 * 1000);
+  }
 
   #counterDown() {
     this.intervalID = setInterval(() => {
