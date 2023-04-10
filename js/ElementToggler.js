@@ -6,10 +6,12 @@ export class ElementToggler {
 
   show() {
     this.element.style.visibility = "visible";
+    this.element.style.position = "static";
   }
 
   hide() {
     this.element.style.visibility = "hidden";
+    this.element.style.position = "absolute";
   }
 
   enable() {
