@@ -1,6 +1,10 @@
+import { ElementToggler } from "./ElementToggler";
+
 const startBtn = document.querySelector("#btn-start");
+const pauseBtn = document.querySelector("#btn-pause");
 const stopBtn = document.querySelector("#btn-stop");
-const resetBtn = document.querySelector("#btn-reset");
+const resumeBtn = document.querySelector("#btn-resume");
+const doneBtn = document.querySelector("#btn-done");
 
 class Counter {
   #startTime = new Date();
@@ -24,18 +28,18 @@ class Counter {
     this.#counterDown();
   }
 
-  stop() {
+  pause() {
     this.stopTime = new Date();
     clearInterval(this.intervalID);
   }
 
-  reset() {
+  stop() {
     this.startTime = null;
     this.endTime = null;
     clearInterval(this.intervalID);
   }
 
-  continue(currentTime) {
+  resume(currentTime) {
     const pauseTime = currentTime - this.stopTime;
     this.endTime = new Date(this.endTime.getTime() + pauseTime);
     this.#counterDown();
@@ -87,20 +91,46 @@ class Counter {
 
 let timer;
 
+const stopBtnController = new ElementToggler(stopBtn);
+const startBtnController = new ElementToggler(startBtn);
+const resumeBtnController = new ElementToggler(resumeBtn);
+const pauseBtnController = new ElementToggler(pauseBtn);
+const doneBtnController = new ElementToggler(doneBtn);
+
 startBtn.addEventListener("click", () => {
   if (timer?.startTime) {
     const currentTime = new Date();
-    timer.continue(currentTime);
+    timer.resume(currentTime);
   } else {
     timer = new Counter();
     timer.start();
   }
+
+  startBtnController.hide();
+  stopBtnController.show();
+});
+
+pauseBtn.addEventListener("click", () => {
+  timer.pause();
+  resumeBtnController.show();
+  doneBtnController.show();
+  stopBtnController.hide();
+  pauseBtnController.hide();
 });
 
 stopBtn.addEventListener("click", () => {
   timer.stop();
+  startBtnController.show();
+  stopBtnController.disable();
+  pauseBtnController.hide();
 });
 
-resetBtn.addEventListener("click", () => {
-  timer.reset();
+resumeBtn.addEventListener("click", () => {
+  resumeBtnController.hide();
+  doneBtnController.hide();
+  const currentTime = new Date();
+  timer.resume(currentTime);
+
+  stopBtnController.show();
+  pauseBtnController.show();
 });
