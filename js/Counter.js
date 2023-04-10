@@ -103,6 +103,8 @@ const resumeBtnController = new ElementToggler(resumeBtn);
 const pauseBtnController = new ElementToggler(pauseBtn);
 const doneBtnController = new ElementToggler(doneBtn);
 
+pauseBtnController.disable();
+
 startBtn.addEventListener("click", () => {
   timer = new Counter();
   timer.start();
@@ -111,6 +113,7 @@ startBtn.addEventListener("click", () => {
   pauseBtnController.show();
   stopBtnController.show();
   stopBtnController.enable();
+  pauseBtnController.enable();
 });
 
 pauseBtn.addEventListener("click", () => {
