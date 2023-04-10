@@ -1,10 +1,13 @@
 import { ElementToggler } from "./ElementToggler";
+import { Timer } from "./Timer";
 
 const startBtn = document.querySelector("#btn-start");
 const pauseBtn = document.querySelector("#btn-pause");
 const stopBtn = document.querySelector("#btn-stop");
 const resumeBtn = document.querySelector("#btn-resume");
 const doneBtn = document.querySelector("#btn-done");
+
+const timerElement = new Timer("time", "25:00");
 
 class Counter {
   #startTime = new Date();
@@ -20,7 +23,9 @@ class Counter {
       const minutes = Math.floor(secondsLeft / 60);
       const seconds = secondsLeft % 60;
 
-      console.log(`${minutes}:${seconds}`);
+      const time = `${minutes}:${seconds}`;
+      console.log(`${time}`);
+      timerElement.update(time);
     }, 1000);
   }
 
@@ -36,6 +41,7 @@ class Counter {
   stop() {
     this.startTime = null;
     this.endTime = null;
+    timerElement.reset();
     clearInterval(this.intervalID);
   }
 
@@ -98,19 +104,13 @@ const pauseBtnController = new ElementToggler(pauseBtn);
 const doneBtnController = new ElementToggler(doneBtn);
 
 startBtn.addEventListener("click", () => {
-  //   if (timer?.startTime) {
-  //     const currentTime = new Date();
-  //     timer.resume(currentTime);
-  //   } else {
-
-  //   }
-
   timer = new Counter();
   timer.start();
 
   startBtnController.hide();
   pauseBtnController.show();
   stopBtnController.show();
+  stopBtnController.enable();
 });
 
 pauseBtn.addEventListener("click", () => {
