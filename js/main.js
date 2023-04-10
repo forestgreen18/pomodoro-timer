@@ -98,15 +98,18 @@ const pauseBtnController = new ElementToggler(pauseBtn);
 const doneBtnController = new ElementToggler(doneBtn);
 
 startBtn.addEventListener("click", () => {
-  if (timer?.startTime) {
-    const currentTime = new Date();
-    timer.resume(currentTime);
-  } else {
-    timer = new Counter();
-    timer.start();
-  }
+  //   if (timer?.startTime) {
+  //     const currentTime = new Date();
+  //     timer.resume(currentTime);
+  //   } else {
+
+  //   }
+
+  timer = new Counter();
+  timer.start();
 
   startBtnController.hide();
+  pauseBtnController.show();
   stopBtnController.show();
 });
 
