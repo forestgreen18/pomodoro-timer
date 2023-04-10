@@ -333,8 +333,10 @@ main {
 }
 
 .time__button-stop,
-.time__button-reset {
-  display: none;
+.time__button-reset,
+.time__button-resume,
+.time__button-done {
+  visibility: hidden;
 }
 
 .timer__button {
