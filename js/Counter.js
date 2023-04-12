@@ -1,15 +1,18 @@
-const startBtn = document.querySelector("#btn-start");
-const stopBtn = document.querySelector("#btn-stop");
-const resetBtn = document.querySelector("#btn-reset");
+import { Timer } from "./Timer";
 
-class Counter {
+const timerElement = new Timer("time", "25:00");
+export class Counter {
+  #amountOfTime;
   #startTime = new Date();
   #endTime;
   #intervalID = null;
   #stopTime = null;
 
-  constructor(minutes = 25) {
-    this.#endTime = new Date(this.#startTime.getTime() + minutes * 60 * 1000);
+  constructor(amountOfTime = 25) {
+    this.amountOfTime = amountOfTime;
+    this.endTime = new Date(
+      this.startTime.getTime() + this.amountOfTime * 60 * 1000
+    );
   }
 
   #counterDown() {
@@ -18,7 +21,9 @@ class Counter {
       const minutes = Math.floor(secondsLeft / 60);
       const seconds = secondsLeft % 60;
 
-      console.log(`${minutes}:${seconds}`);
+      const time = `${minutes}:${seconds}`;
+      console.log(`${time}`);
+      timerElement.update(time);
     }, 1000);
   }
 
@@ -26,18 +31,19 @@ class Counter {
     this.#counterDown();
   }
 
-  stop() {
+  pause() {
     this.stopTime = new Date();
     clearInterval(this.intervalID);
   }
 
-  reset() {
+  stop() {
     this.startTime = null;
     this.endTime = null;
+    timerElement.reset();
     clearInterval(this.intervalID);
   }
 
-  continue(currentTime) {
+  resume(currentTime) {
     const pauseTime = currentTime - this.stopTime;
     this.endTime = new Date(this.endTime.getTime() + pauseTime);
     this.#counterDown();
@@ -70,6 +76,10 @@ class Counter {
     return this.#intervalID;
   }
 
+  get amountOfTime() {
+    return this.#amountOfTime;
+  }
+
   set startTime(startTime) {
     this.#startTime = startTime;
   }
@@ -85,24 +95,8 @@ class Counter {
   set endTime(endTime) {
     this.#endTime = endTime;
   }
-}
 
-let timer;
-
-startBtn.addEventListener("click", () => {
-  if (timer?.startTime) {
-    const currentTime = new Date();
-    timer.continue(currentTime);
-  } else {
-    timer = new Counter();
-    timer.start();
+  set amountOfTime(time) {
+    this.#amountOfTime = time;
   }
-});
-
-stopBtn.addEventListener("click", () => {
-  timer.stop();
-});
-
-resetBtn.addEventListener("click", () => {
-  timer.reset();
-});
+}

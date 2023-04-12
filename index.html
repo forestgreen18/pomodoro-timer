@@ -14,6 +14,7 @@
     <link rel="manifest" href="site.webmanifest" />
     <link rel="apple-touch-icon" href="icon.png" />
 
+    <link rel="stylesheet" href="css/variables.css" />
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/main.css" />
 
@@ -24,22 +25,36 @@
     <main>
       <div class="wrapper">
         <section class="timer">
-          <span class="timer__time" id="time">25:00</span>
-          <div class="timer__buttons">
-            <button class="timer__button time__button-start" id="btn-start">
-              Start
-            </button>
-            <button class="timer__button time__button-stop" id="btn-stop">
-              Stop
-            </button>
-            <button class="timer__button time__button-reset" id="btn-reset">
-              Reset
-            </button>
+          <div class="timer__box">
+            <h3 class="timer__title">Pomodoro Timer</h3>
+            <div class="timer__digits-controls">
+              <span class="timer__time" id="time"> 25:00 </span>
+              <div class="timer__buttons">
+                <button
+                  class="timer__button time__button-resume"
+                  id="btn-resume"
+                >
+                  Resume
+                </button>
+                <button class="timer__button time__button-start" id="btn-start">
+                  Start
+                </button>
+                <button class="timer__button time__button-pause" id="btn-pause">
+                  Pause
+                </button>
+                <button class="timer__button time__button-stop" id="btn-stop">
+                  Stop
+                </button>
+                <button class="timer__button time__button-done" id="btn-done">
+                  Done
+                </button>
+              </div>
+            </div>
           </div>
         </section>
       </div>
     </main>
 
-    <script src="js/main.js"></script>
+    <script src="js/index.js"></script>
   </body>
 </html>
