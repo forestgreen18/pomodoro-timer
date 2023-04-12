@@ -1,18 +1,19 @@
-import { Timer } from "./Timer";
-
-const timerElement = new Timer("time", "25:00");
 export class Counter {
   #amountOfTime;
   #startTime = new Date();
   #endTime;
   #intervalID = null;
   #stopTime = null;
+  #updateCallback;
+  #resetCallback;
 
-  constructor(amountOfTime = 25) {
+  constructor(amountOfTime = 25, updateCallback, resetCallback) {
     this.amountOfTime = amountOfTime;
     this.endTime = new Date(
       this.startTime.getTime() + this.amountOfTime * 60 * 1000
     );
+    this.updateCallback = updateCallback;
+    this.resetCallback = resetCallback;
   }
 
   #counterDown() {
@@ -22,8 +23,9 @@ export class Counter {
       const seconds = secondsLeft % 60;
 
       const time = `${minutes}:${seconds}`;
-      console.log(`${time}`);
-      timerElement.update(time);
+      if (this.#updateCallback) {
+        this.#updateCallback(time);
+      }
     }, 1000);
   }
 
@@ -39,7 +41,9 @@ export class Counter {
   stop() {
     this.startTime = null;
     this.endTime = null;
-    timerElement.reset();
+    if (this.#resetCallback) {
+      this.#resetCallback();
+    }
     clearInterval(this.intervalID);
   }
 
@@ -98,5 +102,13 @@ export class Counter {
 
   set amountOfTime(time) {
     this.#amountOfTime = time;
+  }
+
+  set updateCallback(callback) {
+    this.#updateCallback = callback;
+  }
+
+  set resetCallback(callback) {
+    this.#resetCallback = callback;
   }
 }
