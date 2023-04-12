@@ -1,3 +1,6 @@
+export const WORK_MODE = "work";
+export const SHORT_BREAK_MODE = "shortBreak";
+export const LONG_BREAK_MODE = "longBreak";
 export class TimerMode {
   #mode;
 
@@ -13,6 +16,19 @@ export class TimerMode {
     TimerMode.instance = this;
   }
 
+  getNumberForMode() {
+    switch (this.mode) {
+      case WORK_MODE:
+        return 25;
+      case SHORT_BREAK_MODE:
+        return 5;
+      case LONG_BREAK_MODE:
+        return 15;
+      default:
+        return 0;
+    }
+  }
+
   set mode(mode) {
     this.#mode = mode;
   }
@@ -22,14 +38,14 @@ export class TimerMode {
   }
 
   work() {
-    this.mode = "work";
+    this.mode = WORK_MODE;
   }
 
   shortBreak() {
-    this.mode = "shortBreak";
+    this.mode = SHORT_BREAK_MODE;
   }
 
   longBreak() {
-    this.mode = "longBreak";
+    this.mode = LONG_BREAK_MODE;
   }
 }
