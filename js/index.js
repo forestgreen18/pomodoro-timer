@@ -10,8 +10,8 @@ const resumeBtn = document.querySelector("#btn-resume");
 const doneBtn = document.querySelector("#btn-done");
 
 let counter;
-let timerMode;
 const timerElement = new Timer("time", 25);
+const timerMode = new TimerMode();
 
 const stopBtnController = new ElementToggler(stopBtn);
 const startBtnController = new ElementToggler(startBtn);
@@ -23,11 +23,10 @@ pauseBtnController.disable();
 
 startBtn.addEventListener("click", () => {
   counter = new Counter(
-    25,
+    timerMode.getNumberForMode,
     (time) => timerElement.update(time),
     () => timerElement.reset()
   );
-  timerMode = new TimerMode();
 
   counter.start();
   startBtnController.hide();
@@ -59,5 +58,12 @@ resumeBtn.addEventListener("click", () => {
   counter.resume(currentTime);
 
   stopBtnController.show();
+  pauseBtnController.show();
+});
+
+doneBtn.addEventListener("click", () => {
+  timerMode.shortBreak();
+  counter.done(timerMode.getNumberForMode);
+  resumeBtnController.hide();
   pauseBtnController.show();
 });
