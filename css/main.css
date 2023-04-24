@@ -344,7 +344,8 @@ main {
 .time__button-stop,
 .time__button-reset,
 .time__button-resume,
-.time__button-done {
+.time__button-done,
+.time__button-skip {
   visibility: hidden;
   position: absolute;
 }

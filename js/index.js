@@ -1,6 +1,6 @@
 import { ElementToggler } from "./ElementToggler";
 import { Counter } from "./Counter";
-import { TimerMode } from "./TimerMode";
+import { TimerMode, WORK_MODE } from "./TimerMode";
 import { Timer } from "./Timer";
 
 const startBtn = document.querySelector("#btn-start");
@@ -8,6 +8,7 @@ const pauseBtn = document.querySelector("#btn-pause");
 const stopBtn = document.querySelector("#btn-stop");
 const resumeBtn = document.querySelector("#btn-resume");
 const doneBtn = document.querySelector("#btn-done");
+const skipBtn = document.querySelector("#btn-skip");
 
 let counter;
 const timerElement = new Timer("time", 25);
@@ -18,6 +19,7 @@ const startBtnController = new ElementToggler(startBtn);
 const resumeBtnController = new ElementToggler(resumeBtn);
 const pauseBtnController = new ElementToggler(pauseBtn);
 const doneBtnController = new ElementToggler(doneBtn);
+const skipBtnController = new ElementToggler(skipBtn);
 
 pauseBtnController.disable();
 
@@ -37,9 +39,11 @@ startBtn.addEventListener("click", () => {
 });
 
 pauseBtn.addEventListener("click", () => {
+  if (timerMode.mode === WORK_MODE) {
+    doneBtnController.show();
+  }
   counter.pause();
   resumeBtnController.show();
-  doneBtnController.show();
   stopBtnController.hide();
   pauseBtnController.hide();
 });
@@ -52,12 +56,15 @@ stopBtn.addEventListener("click", () => {
 });
 
 resumeBtn.addEventListener("click", () => {
+  if (timerMode.mode === WORK_MODE) {
+    stopBtnController.show();
+  }
+
   resumeBtnController.hide();
   doneBtnController.hide();
   const currentTime = new Date();
   counter.resume(currentTime);
 
-  stopBtnController.show();
   pauseBtnController.show();
 });
 
@@ -66,4 +73,7 @@ doneBtn.addEventListener("click", () => {
   counter.done(timerMode.getNumberForMode);
   resumeBtnController.hide();
   pauseBtnController.show();
+  stopBtnController.hide();
+  doneBtnController.hide();
+  skipBtnController.show();
 });
