@@ -16,7 +16,7 @@ export class TimerMode {
     TimerMode.instance = this;
   }
 
-  getNumberForMode() {
+  #getNumberForMode() {
     switch (this.mode) {
       case WORK_MODE:
         return 25;
@@ -35,6 +35,10 @@ export class TimerMode {
 
   get mode() {
     return this.#mode;
+  }
+
+  get getNumberForMode() {
+    return this.#getNumberForMode();
   }
 
   work() {

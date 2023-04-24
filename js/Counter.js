@@ -47,7 +47,7 @@ export class Counter {
 
   pause() {
     this.stopTime = new Date();
-    clearInterval(this.intervalID);
+    this.#clearIntervalAndReset();
   }
 
   stop() {
@@ -56,7 +56,7 @@ export class Counter {
     if (this.#resetCallback) {
       this.#resetCallback();
     }
-    clearInterval(this.intervalID);
+    this.#clearIntervalAndReset();
   }
 
   resume(currentTime) {
@@ -65,11 +65,22 @@ export class Counter {
     this.#counterDown();
   }
 
+  done(timeForBreak = 5) {
+    this.stop();
+    this.amountOfTime = timeForBreak;
+    this.start();
+  }
+
   #setTime(amountOfTime = 25) {
     this.#startTime = new Date();
     this.#endTime = new Date(
       this.#startTime.getTime() + amountOfTime * 60 * 1000
     );
+  }
+
+  #clearIntervalAndReset() {
+    clearInterval(this.intervalID);
+    this.intervalID = null;
   }
 
   get startTime() {
