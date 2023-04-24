@@ -64,7 +64,6 @@ resumeBtn.addEventListener("click", () => {
   doneBtnController.hide();
   const currentTime = new Date();
   counter.resume(currentTime);
-
   pauseBtnController.show();
 });
 
@@ -76,4 +75,15 @@ doneBtn.addEventListener("click", () => {
   stopBtnController.hide();
   doneBtnController.hide();
   skipBtnController.show();
+});
+
+skipBtn.addEventListener("click", () => {
+  timerMode.work();
+  counter.skip();
+  startBtnController.show();
+  stopBtnController.show();
+  stopBtnController.disable();
+  skipBtnController.hide();
+  pauseBtnController.hide();
+  resumeBtnController.hide();
 });
