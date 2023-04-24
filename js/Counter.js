@@ -6,6 +6,7 @@ export class Counter {
   #endTime;
   #intervalID = null;
   #stopTime = null;
+  #amountOfWorkTime = null;
   #updateCallback;
   #resetCallback;
 
@@ -15,6 +16,7 @@ export class Counter {
     }
 
     this.amountOfTime = amountOfTime;
+    this.amountOfWorkTime = amountOfTime;
     this.endTime = new Date(
       this.startTime.getTime() + this.amountOfTime * 60 * 1000
     );
@@ -71,6 +73,11 @@ export class Counter {
     this.start();
   }
 
+  skip() {
+    this.stop();
+    this.amountOfTime = this.amountOfWorkTime;
+  }
+
   #setTime(amountOfTime = 25) {
     this.#startTime = new Date();
     this.#endTime = new Date(
@@ -114,6 +121,10 @@ export class Counter {
     return this.#amountOfTime;
   }
 
+  get amountOfWorkTime() {
+    return this.#amountOfWorkTime;
+  }
+
   set startTime(startTime) {
     this.#startTime = startTime;
   }
@@ -140,5 +151,9 @@ export class Counter {
 
   set resetCallback(callback) {
     this.#resetCallback = callback;
+  }
+
+  set amountOfWorkTime(amountOfWorkTime) {
+    this.#amountOfWorkTime = amountOfWorkTime;
   }
 }
