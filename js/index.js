@@ -68,7 +68,7 @@ resumeBtn.addEventListener("click", () => {
 });
 
 doneBtn.addEventListener("click", () => {
-  timerMode.shortBreak();
+  timerMode.break();
   counter.done(timerMode.getNumberForMode);
   resumeBtnController.hide();
   pauseBtnController.show();

@@ -3,17 +3,36 @@ export const SHORT_BREAK_MODE = "shortBreak";
 export const LONG_BREAK_MODE = "longBreak";
 export class TimerMode {
   #mode;
+  #timerOrder = 1;
 
   constructor(mode = "work") {
     if (TimerMode.instance instanceof TimerMode) {
       return TimerMode.instance;
     }
 
-    this.#mode = mode;
+    this.mode = mode;
 
     Object.freeze(this.#mode);
     Object.freeze(this);
     TimerMode.instance = this;
+  }
+
+  work() {
+    this.#increaseTimerOrder();
+    this.mode = WORK_MODE;
+  }
+
+  break() {
+    this.#increaseTimerOrder();
+    this.#defineBreakMode();
+  }
+
+  #shortBreak() {
+    this.mode = SHORT_BREAK_MODE;
+  }
+
+  #longBreak() {
+    this.mode = LONG_BREAK_MODE;
   }
 
   #getNumberForMode() {
@@ -29,8 +48,17 @@ export class TimerMode {
     }
   }
 
-  set mode(mode) {
-    this.#mode = mode;
+  #increaseTimerOrder() {
+    this.timerOrder += 1;
+    console.log(`timerOrder ${this.timerOrder}`);
+  }
+
+  #defineBreakMode() {
+    if (this.timerOrder % 8 === 0) {
+      this.#longBreak();
+    } else if (this.timerOrder % 2 === 0) {
+      this.#shortBreak();
+    }
   }
 
   get mode() {
@@ -41,15 +69,15 @@ export class TimerMode {
     return this.#getNumberForMode();
   }
 
-  work() {
-    this.mode = WORK_MODE;
+  get timerOrder() {
+    return this.#timerOrder;
   }
 
-  shortBreak() {
-    this.mode = SHORT_BREAK_MODE;
+  set mode(mode) {
+    this.#mode = mode;
   }
 
-  longBreak() {
-    this.mode = LONG_BREAK_MODE;
+  set timerOrder(orderNumber) {
+    this.#timerOrder = orderNumber;
   }
 }
