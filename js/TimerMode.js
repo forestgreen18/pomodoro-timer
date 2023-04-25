@@ -27,6 +27,18 @@ export class TimerMode {
     this.#defineBreakMode();
   }
 
+  changeMode() {
+    let timeForNextMode;
+    if (this.mode === WORK_MODE) {
+      this.break();
+      timeForNextMode = this.getNumberForMode;
+    } else {
+      this.work();
+      timeForNextMode = this.getNumberForMode;
+    }
+    return timeForNextMode;
+  }
+
   #shortBreak() {
     this.mode = SHORT_BREAK_MODE;
   }
@@ -38,11 +50,11 @@ export class TimerMode {
   #getNumberForMode() {
     switch (this.mode) {
       case WORK_MODE:
-        return 25;
+        return 0.4;
       case SHORT_BREAK_MODE:
-        return 5;
+        return 0.2;
       case LONG_BREAK_MODE:
-        return 15;
+        return 0.3;
       default:
         return 0;
     }

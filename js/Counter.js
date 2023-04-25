@@ -9,12 +9,19 @@ export class Counter {
   #amountOfWorkTime = null;
   #updateCallback;
   #resetCallback;
+  #modeChangeCallback;
 
-  constructor(amountOfTime = 25, updateCallback, resetCallback) {
+  constructor(
+    amountOfTime = 25,
+    updateCallback,
+    resetCallback,
+    modeChangeCallback
+  ) {
     if (Counter.instance) {
       return Counter.instance;
     }
 
+    this.modeChangeCallback = modeChangeCallback;
     this.amountOfTime = amountOfTime;
     this.amountOfWorkTime = amountOfTime;
     this.endTime = new Date(
@@ -33,6 +40,11 @@ export class Counter {
 
     this.intervalID = setInterval(() => {
       const secondsLeft = this.secondsLeft;
+
+      if (secondsLeft <= 0) {
+        this.#restart();
+      }
+
       const minutes = Math.floor(secondsLeft / 60);
       const seconds = secondsLeft % 60;
 
@@ -55,8 +67,8 @@ export class Counter {
   stop() {
     this.startTime = null;
     this.endTime = null;
-    if (this.#resetCallback) {
-      this.#resetCallback();
+    if (this.resetCallback) {
+      this.resetCallback();
     }
     this.#clearIntervalAndReset();
   }
@@ -78,10 +90,19 @@ export class Counter {
     this.amountOfTime = this.amountOfWorkTime;
   }
 
+  #restart() {
+    let timeForNextMode;
+    if (this.modeChangeCallback) {
+      timeForNextMode = this.modeChangeCallback();
+    }
+
+    this.done(timeForNextMode);
+  }
+
   #setTime(amountOfTime = 25) {
-    this.#startTime = new Date();
-    this.#endTime = new Date(
-      this.#startTime.getTime() + amountOfTime * 60 * 1000
+    this.startTime = new Date();
+    this.endTime = new Date(
+      this.startTime.getTime() + amountOfTime * 60 * 1000
     );
   }
 
@@ -125,6 +146,14 @@ export class Counter {
     return this.#amountOfWorkTime;
   }
 
+  get modeChangeCallback() {
+    return this.#modeChangeCallback;
+  }
+
+  get resetCallback() {
+    return this.#resetCallback;
+  }
+
   set startTime(startTime) {
     this.#startTime = startTime;
   }
@@ -155,5 +184,13 @@ export class Counter {
 
   set amountOfWorkTime(amountOfWorkTime) {
     this.#amountOfWorkTime = amountOfWorkTime;
+  }
+
+  set modeChangeCallback(callback) {
+    this.#modeChangeCallback = callback;
+  }
+
+  set resetCallback(resetCallback) {
+    this.#resetCallback = resetCallback;
   }
 }
