@@ -1,7 +1,8 @@
 import { ElementToggler } from "./ElementToggler";
 import { Counter } from "./Counter";
-import { TimerMode, WORK_MODE } from "./TimerMode";
+import { TimerMode } from "./TimerMode";
 import { TimerDisplay } from "./TimerDisplay";
+import { Timer } from "./Timer";
 
 const startBtn = document.querySelector("#btn-start");
 const pauseBtn = document.querySelector("#btn-pause");
@@ -11,6 +12,8 @@ const doneBtn = document.querySelector("#btn-done");
 const skipBtn = document.querySelector("#btn-skip");
 
 let counter;
+let timer;
+
 const timerElement = new TimerDisplay("time", 25);
 const timerMode = new TimerMode();
 
@@ -31,60 +34,36 @@ startBtn.addEventListener("click", () => {
     () => timerMode.changeMode()
   );
 
-  counter.start();
-  startBtnController.hide();
-  pauseBtnController.show();
-  stopBtnController.show();
-  stopBtnController.enable();
-  pauseBtnController.enable();
+  timer = new Timer(
+    counter,
+    timerMode,
+    startBtnController,
+    stopBtnController,
+    pauseBtnController,
+    resumeBtnController,
+    doneBtnController,
+    skipBtnController
+  );
+
+  timer.start();
 });
 
 pauseBtn.addEventListener("click", () => {
-  if (timerMode.mode === WORK_MODE) {
-    doneBtnController.show();
-  }
-  counter.pause();
-  resumeBtnController.show();
-  stopBtnController.hide();
-  pauseBtnController.hide();
+  timer.pause();
 });
 
 stopBtn.addEventListener("click", () => {
-  counter.stop();
-  startBtnController.show();
-  stopBtnController.disable();
-  pauseBtnController.hide();
+  timer.stop();
 });
 
 resumeBtn.addEventListener("click", () => {
-  if (timerMode.mode === WORK_MODE) {
-    stopBtnController.show();
-  }
-
-  resumeBtnController.hide();
-  doneBtnController.hide();
-  const currentTime = new Date();
-  counter.resume(currentTime);
-  pauseBtnController.show();
+  timer.resume();
 });
 
 doneBtn.addEventListener("click", () => {
-  timerMode.break();
-  counter.done(timerMode.getNumberForMode);
-  resumeBtnController.hide();
-  pauseBtnController.show();
-  stopBtnController.hide();
-  doneBtnController.hide();
-  skipBtnController.show();
+  timer.done();
 });
 
 skipBtn.addEventListener("click", () => {
-  timerMode.work();
-  counter.skip();
-  startBtnController.show();
-  stopBtnController.show();
-  stopBtnController.disable();
-  skipBtnController.hide();
-  pauseBtnController.hide();
-  resumeBtnController.hide();
+  timer.skip();
 });
