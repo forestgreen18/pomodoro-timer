@@ -1,7 +1,7 @@
 import { ElementToggler } from "./ElementToggler";
 import { Counter } from "./Counter";
 import { TimerMode, WORK_MODE } from "./TimerMode";
-import { Timer } from "./Timer";
+import { TimerDisplay } from "./TimerDisplay";
 
 const startBtn = document.querySelector("#btn-start");
 const pauseBtn = document.querySelector("#btn-pause");
@@ -11,7 +11,7 @@ const doneBtn = document.querySelector("#btn-done");
 const skipBtn = document.querySelector("#btn-skip");
 
 let counter;
-const timerElement = new Timer("time", 25);
+const timerElement = new TimerDisplay("time", 25);
 const timerMode = new TimerMode();
 
 const stopBtnController = new ElementToggler(stopBtn);
