@@ -17,26 +17,19 @@ export class TimerMode {
     TimerMode.instance = this;
   }
 
-  work() {
-    this.#increaseTimerOrder();
+  #work() {
+    // this.#increaseTimerOrder();
     this.mode = WORK_MODE;
   }
 
-  break() {
-    this.#increaseTimerOrder();
-    this.#defineBreakMode();
-  }
+  //   break() {
+  //     this.#increaseTimerOrder();
+  //     this.#defineBreakMode();
+  //   }
 
   changeMode() {
-    let timeForNextMode;
-    if (this.mode === WORK_MODE) {
-      this.break();
-      timeForNextMode = this.getNumberForMode;
-    } else {
-      this.work();
-      timeForNextMode = this.getNumberForMode;
-    }
-    return timeForNextMode;
+    this.#increaseTimerOrder();
+    this.#defineMode();
   }
 
   #shortBreak() {
@@ -65,11 +58,13 @@ export class TimerMode {
     console.log(`timerOrder ${this.timerOrder}`);
   }
 
-  #defineBreakMode() {
+  #defineMode() {
     if (this.timerOrder % 8 === 0) {
       this.#longBreak();
     } else if (this.timerOrder % 2 === 0) {
       this.#shortBreak();
+    } else {
+      this.#work();
     }
   }
 

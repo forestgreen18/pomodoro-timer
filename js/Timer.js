@@ -69,7 +69,7 @@ export class Timer {
   }
 
   done() {
-    this.timerMode.break();
+    this.timerMode.changeMode();
     this.counter.done(this.timerMode.getNumberForMode);
     this.resumeBtnController.hide();
     this.pauseBtnController.show();
@@ -79,7 +79,7 @@ export class Timer {
   }
 
   skip() {
-    this.timerMode.work();
+    this.timerMode.changeMode();
     this.counter.skip();
     this.startBtnController.show();
     this.stopBtnController.show();
@@ -87,6 +87,14 @@ export class Timer {
     this.skipBtnController.hide();
     this.pauseBtnController.hide();
     this.resumeBtnController.hide();
+  }
+
+  onCounterDone() {
+    console.log("method is triggered");
+    this.timerMode.changeMode();
+    console.log(`timer mode timer`, this.timerMode.getNumberForMode);
+
+    this.counter.done(this.timerMode.getNumberForMode);
   }
 
   get counter() {

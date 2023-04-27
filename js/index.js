@@ -31,7 +31,8 @@ startBtn.addEventListener("click", () => {
     timerMode.getNumberForMode,
     (time) => timerElement.update(time),
     () => timerElement.reset(),
-    () => timerMode.changeMode()
+    () => timerMode.changeMode(),
+    () => timer.onCounterDone()
   );
 
   timer = new Timer(
