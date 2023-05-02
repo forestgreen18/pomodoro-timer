@@ -9,21 +9,23 @@ export class Counter {
   #amountOfWorkTime = null;
   #updateCallback;
   #resetCallback;
-  #modeChangeCallback;
+  //   #modeChangeCallback;
 
   constructor(
     amountOfTime = 25,
     updateCallback,
     resetCallback,
-    modeChangeCallback
+    modeChangeCallback,
+    doneCallback
   ) {
     if (Counter.instance) {
       return Counter.instance;
     }
 
-    this.modeChangeCallback = modeChangeCallback;
+    // this.modeChangeCallback = modeChangeCallback;
     this.amountOfTime = amountOfTime;
     this.amountOfWorkTime = amountOfTime;
+    this.doneCallback = doneCallback;
     this.endTime = new Date(
       this.startTime.getTime() + this.amountOfTime * 60 * 1000
     );
@@ -32,6 +34,9 @@ export class Counter {
 
     Counter.instance = this;
   }
+
+  // !ідея: забрати звідси resetCallback і запускає його із Timer class. Тут нехай буде лише відлік зворотнього часу до 0 і все
+  // !Метод done запускати в timer і передавати в нього час, тоді коли зміниться TimerMode
 
   #counterDown() {
     if (!this.startTime || !this.endTime) {
@@ -42,7 +47,11 @@ export class Counter {
       const secondsLeft = this.secondsLeft;
 
       if (secondsLeft <= 0) {
-        this.#restart();
+        if (this.doneCallback) {
+          this.doneCallback();
+        }
+
+        // this.#restart();
       }
 
       const minutes = Math.floor(secondsLeft / 60);
@@ -90,14 +99,14 @@ export class Counter {
     this.amountOfTime = this.amountOfWorkTime;
   }
 
-  #restart() {
-    let timeForNextMode;
-    if (this.modeChangeCallback) {
-      timeForNextMode = this.modeChangeCallback();
-    }
+  //   #restart() {
+  //     let timeForNextMode;
+  //     if (this.modeChangeCallback) {
+  //       timeForNextMode = this.modeChangeCallback();
+  //     }
 
-    this.done(timeForNextMode);
-  }
+  //     this.done(timeForNextMode);
+  //   }
 
   #setTime(amountOfTime = 25) {
     this.startTime = new Date();
@@ -146,9 +155,9 @@ export class Counter {
     return this.#amountOfWorkTime;
   }
 
-  get modeChangeCallback() {
-    return this.#modeChangeCallback;
-  }
+  //   get modeChangeCallback() {
+  //     return this.#modeChangeCallback;
+  //   }
 
   get resetCallback() {
     return this.#resetCallback;
@@ -178,17 +187,13 @@ export class Counter {
     this.#updateCallback = callback;
   }
 
-  set resetCallback(callback) {
-    this.#resetCallback = callback;
-  }
-
   set amountOfWorkTime(amountOfWorkTime) {
     this.#amountOfWorkTime = amountOfWorkTime;
   }
 
-  set modeChangeCallback(callback) {
-    this.#modeChangeCallback = callback;
-  }
+  //   set modeChangeCallback(callback) {
+  //     this.#modeChangeCallback = callback;
+  //   }
 
   set resetCallback(resetCallback) {
     this.#resetCallback = resetCallback;
