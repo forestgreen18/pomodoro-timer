@@ -1,0 +1,51 @@
+/* For large desktops */
+@media only screen and (min-width: 1025px) {
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 1440px) {
+  /* Add your styles here */
+  .timer {
+    width: 80%;
+  }
+}
+
+/* For small desktops and laptops */
+@media only screen and (max-width: 1024px) {
+  html {
+    font-size: 12px;
+  }
+
+  .timer {
+    width: 100%;
+  }
+
+  .wrapper {
+    padding: 0 2.5rem;
+  }
+}
+
+/* For tablets */
+@media only screen and (max-width: 768px) {
+  /* Add your styles here */
+}
+
+/* For tablets */
+@media only screen and (max-width: 525px) {
+  .timer__buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .timer__time {
+    font-size: 7rem;
+  }
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 480px) {
+  /* Add your styles here */
+
+  .timer__time {
+    font-size: 6rem;
+  }
+}
