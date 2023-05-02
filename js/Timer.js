@@ -91,7 +91,11 @@ export class Timer {
   }
 
   onCounterDone() {
-    this.done();
+    if (this.timerMode.mode === WORK_MODE) {
+      this.done();
+    } else {
+      this.skip();
+    }
   }
 
   get counter() {

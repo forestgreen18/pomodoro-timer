@@ -18,14 +18,8 @@ export class TimerMode {
   }
 
   #work() {
-    // this.#increaseTimerOrder();
     this.mode = WORK_MODE;
   }
-
-  //   break() {
-  //     this.#increaseTimerOrder();
-  //     this.#defineBreakMode();
-  //   }
 
   changeMode() {
     this.#increaseTimerOrder();
