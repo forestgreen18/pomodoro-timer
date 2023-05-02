@@ -47,6 +47,7 @@ export class Timer {
   }
 
   pause() {
+    console.log(`timer mode`, this.timerMode.mode);
     if (this.timerMode.mode === WORK_MODE) {
       this.doneBtnController.show();
     }
@@ -90,11 +91,7 @@ export class Timer {
   }
 
   onCounterDone() {
-    console.log("method is triggered");
-    this.timerMode.changeMode();
-    console.log(`timer mode timer`, this.timerMode.getNumberForMode);
-
-    this.counter.done(this.timerMode.getNumberForMode);
+    this.done();
   }
 
   get counter() {
