@@ -9,7 +9,6 @@ export class Counter {
   #amountOfWorkTime = null;
   #updateCallback;
   #resetCallback;
-  //   #modeChangeCallback;
 
   constructor(
     amountOfTime = 25,
@@ -22,7 +21,6 @@ export class Counter {
       return Counter.instance;
     }
 
-    // this.modeChangeCallback = modeChangeCallback;
     this.amountOfTime = amountOfTime;
     this.amountOfWorkTime = amountOfTime;
     this.doneCallback = doneCallback;
@@ -34,9 +32,6 @@ export class Counter {
 
     Counter.instance = this;
   }
-
-  // !ідея: забрати звідси resetCallback і запускає його із Timer class. Тут нехай буде лише відлік зворотнього часу до 0 і все
-  // !Метод done запускати в timer і передавати в нього час, тоді коли зміниться TimerMode
 
   #counterDown() {
     if (!this.startTime || !this.endTime) {
@@ -50,8 +45,6 @@ export class Counter {
         if (this.doneCallback) {
           this.doneCallback();
         }
-
-        // this.#restart();
       }
 
       const minutes = Math.floor(secondsLeft / 60);
@@ -98,15 +91,6 @@ export class Counter {
     this.stop();
     this.amountOfTime = this.amountOfWorkTime;
   }
-
-  //   #restart() {
-  //     let timeForNextMode;
-  //     if (this.modeChangeCallback) {
-  //       timeForNextMode = this.modeChangeCallback();
-  //     }
-
-  //     this.done(timeForNextMode);
-  //   }
 
   #setTime(amountOfTime = 25) {
     this.startTime = new Date();
@@ -155,10 +139,6 @@ export class Counter {
     return this.#amountOfWorkTime;
   }
 
-  //   get modeChangeCallback() {
-  //     return this.#modeChangeCallback;
-  //   }
-
   get resetCallback() {
     return this.#resetCallback;
   }
@@ -190,10 +170,6 @@ export class Counter {
   set amountOfWorkTime(amountOfWorkTime) {
     this.#amountOfWorkTime = amountOfWorkTime;
   }
-
-  //   set modeChangeCallback(callback) {
-  //     this.#modeChangeCallback = callback;
-  //   }
 
   set resetCallback(resetCallback) {
     this.#resetCallback = resetCallback;

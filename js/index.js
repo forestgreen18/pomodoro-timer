@@ -14,8 +14,8 @@ const skipBtn = document.querySelector("#btn-skip");
 let counter;
 let timer;
 
-const timerElement = new TimerDisplay("time", 25);
 const timerMode = new TimerMode();
+const timerDisplay = new TimerDisplay("time", "timer__box", 25);
 
 const stopBtnController = new ElementToggler(stopBtn);
 const startBtnController = new ElementToggler(startBtn);
@@ -29,8 +29,8 @@ pauseBtnController.disable();
 startBtn.addEventListener("click", () => {
   counter = new Counter(
     timerMode.getNumberForMode,
-    (time) => timerElement.update(time),
-    () => timerElement.reset(),
+    (time) => timerDisplay.update(time),
+    () => timerDisplay.reset(),
     () => timerMode.changeMode(),
     () => timer.onCounterDone()
   );
@@ -38,6 +38,7 @@ startBtn.addEventListener("click", () => {
   timer = new Timer(
     counter,
     timerMode,
+    timerDisplay,
     startBtnController,
     stopBtnController,
     pauseBtnController,
