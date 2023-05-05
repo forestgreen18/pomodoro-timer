@@ -12,6 +12,7 @@ export class Counter {
 
   constructor(
     amountOfTime = 25,
+    timeFormatter,
     updateCallback,
     resetCallback,
     modeChangeCallback,
@@ -24,6 +25,7 @@ export class Counter {
     this.amountOfTime = amountOfTime;
     this.amountOfWorkTime = amountOfTime;
     this.doneCallback = doneCallback;
+    this.timeFormatter = timeFormatter;
     this.endTime = new Date(
       this.startTime.getTime() + this.amountOfTime * 60 * 1000
     );
@@ -47,10 +49,10 @@ export class Counter {
         }
       }
 
-      const minutes = Math.floor(secondsLeft / 60);
-      const seconds = secondsLeft % 60;
+      //   const minutes = Math.floor(secondsLeft / 60);
+      //   const seconds = secondsLeft % 60;
 
-      const time = `${minutes}:${seconds}`;
+      const time = this.timeFormatter.formatTime(secondsLeft);
       if (this.#updateCallback) {
         this.#updateCallback(time);
       }
