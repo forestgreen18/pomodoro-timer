@@ -3,6 +3,7 @@ import { Counter } from "./Counter";
 import { TimerMode } from "./TimerMode";
 import { TimerDisplay } from "./TimerDisplay";
 import { Timer } from "./Timer";
+import { TimeFormatter } from "./TimeFormatter";
 
 const startBtn = document.querySelector("#btn-start");
 const pauseBtn = document.querySelector("#btn-pause");
@@ -11,11 +12,24 @@ const resumeBtn = document.querySelector("#btn-resume");
 const doneBtn = document.querySelector("#btn-done");
 const skipBtn = document.querySelector("#btn-skip");
 
+const timeFormatter = new TimeFormatter();
 let counter;
 let timer;
 
-const timerElement = new TimerDisplay("time", 25);
-const timerMode = new TimerMode();
+let timerMode;
+let timerDisplay;
+
+document.addEventListener("DOMContentLoaded", () => {
+  timerMode = new TimerMode(timeFormatter);
+  timerDisplay = new TimerDisplay(
+    "time",
+    "timer__box",
+    timerMode.getDefaultTime()
+  );
+
+  // update the timer display with the default time value
+  timerDisplay.reset();
+});
 
 const stopBtnController = new ElementToggler(stopBtn);
 const startBtnController = new ElementToggler(startBtn);
@@ -29,8 +43,9 @@ pauseBtnController.disable();
 startBtn.addEventListener("click", () => {
   counter = new Counter(
     timerMode.getNumberForMode,
-    (time) => timerElement.update(time),
-    () => timerElement.reset(),
+    timeFormatter,
+    (time) => timerDisplay.update(time),
+    () => timerDisplay.reset(),
     () => timerMode.changeMode(),
     () => timer.onCounterDone()
   );
@@ -38,6 +53,7 @@ startBtn.addEventListener("click", () => {
   timer = new Timer(
     counter,
     timerMode,
+    timerDisplay,
     startBtnController,
     stopBtnController,
     pauseBtnController,

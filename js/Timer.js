@@ -13,6 +13,7 @@ export class Timer {
   constructor(
     counter,
     timerMode,
+    timerDisplay,
     startBtnController,
     stopBtnController,
     pauseBtnController,
@@ -22,6 +23,7 @@ export class Timer {
   ) {
     this.counter = counter;
     this.timerMode = timerMode;
+    this.timerDisplay = timerDisplay; // add this line
     this.startBtnController = startBtnController;
     this.stopBtnController = stopBtnController;
     this.pauseBtnController = pauseBtnController;
@@ -71,6 +73,7 @@ export class Timer {
 
   done() {
     this.timerMode.changeMode();
+    this.timerDisplay.changeColor(this.timerMode.mode);
     this.counter.done(this.timerMode.getNumberForMode);
     this.resumeBtnController.hide();
     this.pauseBtnController.show();
@@ -81,6 +84,7 @@ export class Timer {
 
   skip() {
     this.timerMode.changeMode();
+    this.timerDisplay.changeColor(this.timerMode.mode);
     this.counter.skip();
     this.startBtnController.show();
     this.stopBtnController.show();
