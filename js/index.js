@@ -3,6 +3,7 @@ import { Counter } from "./Counter";
 import { TimerMode } from "./TimerMode";
 import { TimerDisplay } from "./TimerDisplay";
 import { Timer } from "./Timer";
+import { SoundPlayer } from "./SoundPlayer";
 
 const startBtn = document.querySelector("#btn-start");
 const pauseBtn = document.querySelector("#btn-pause");
@@ -14,6 +15,7 @@ const skipBtn = document.querySelector("#btn-skip");
 let counter;
 let timer;
 
+const soundPlayer = new SoundPlayer();
 const timerElement = new TimerDisplay("time", 25);
 const timerMode = new TimerMode();
 
@@ -50,14 +52,19 @@ startBtn.addEventListener("click", () => {
 });
 
 pauseBtn.addEventListener("click", () => {
+  soundPlayer.playButtonClick();
   timer.pause();
 });
 
 stopBtn.addEventListener("click", () => {
+  soundPlayer.playButtonClick();
+
   timer.stop();
 });
 
 resumeBtn.addEventListener("click", () => {
+  soundPlayer.playButtonClick();
+
   timer.resume();
 });
 
