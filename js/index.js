@@ -3,6 +3,7 @@ import { Counter } from "./Counter";
 import { TimerMode } from "./TimerMode";
 import { TimerDisplay } from "./TimerDisplay";
 import { Timer } from "./Timer";
+import { SoundPlayer } from "./SoundPlayer";
 import { TimeFormatter } from "./TimeFormatter";
 
 const startBtn = document.querySelector("#btn-start");
@@ -15,6 +16,11 @@ const skipBtn = document.querySelector("#btn-skip");
 const timeFormatter = new TimeFormatter();
 let counter;
 let timer;
+
+
+const soundPlayer = new SoundPlayer();
+const timerElement = new TimerDisplay("time", 77);
+const timerMode = new TimerMode();
 
 let timerMode;
 let timerDisplay;
@@ -30,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // update the timer display with the default time value
   timerDisplay.reset();
 });
+
 
 const stopBtnController = new ElementToggler(stopBtn);
 const startBtnController = new ElementToggler(startBtn);
@@ -62,25 +69,33 @@ startBtn.addEventListener("click", () => {
     skipBtnController
   );
 
+  soundPlayer.playStart();
   timer.start();
 });
 
 pauseBtn.addEventListener("click", () => {
+  soundPlayer.playButtonClick();
   timer.pause();
 });
 
 stopBtn.addEventListener("click", () => {
+  soundPlayer.playButtonClick();
+
   timer.stop();
 });
 
 resumeBtn.addEventListener("click", () => {
+  soundPlayer.playButtonClick();
+
   timer.resume();
 });
 
 doneBtn.addEventListener("click", () => {
+  soundPlayer.playModeChange();
   timer.done();
 });
 
 skipBtn.addEventListener("click", () => {
+  soundPlayer.playModeChange();
   timer.skip();
 });
