@@ -5,25 +5,36 @@ export class TimerMode {
   #mode;
   #timerOrder = 1;
 
-  constructor(mode = "work") {
+  constructor(timeFormatter, mode = "work") {
     if (TimerMode.instance instanceof TimerMode) {
       return TimerMode.instance;
     }
 
     this.mode = mode;
+    this.timeFormatter = timeFormatter;
 
     Object.freeze(this.#mode);
     Object.freeze(this);
     TimerMode.instance = this;
   }
 
-  #work() {
-    this.mode = WORK_MODE;
-  }
-
   changeMode() {
     this.#increaseTimerOrder();
     this.#defineMode();
+  }
+
+  getDefaultTime() {
+    const seconds = this.#getNumberForMode() * 60;
+
+    return this.#formatTime(seconds);
+  }
+
+  #formatTime(timeInSeconds) {
+    return this.timeFormatter.formatTime(timeInSeconds);
+  }
+
+  #work() {
+    this.mode = WORK_MODE;
   }
 
   #shortBreak() {
@@ -49,7 +60,6 @@ export class TimerMode {
 
   #increaseTimerOrder() {
     this.timerOrder += 1;
-    console.log(`timerOrder ${this.timerOrder}`);
   }
 
   #defineMode() {

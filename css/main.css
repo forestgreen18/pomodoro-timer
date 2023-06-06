@@ -307,7 +307,9 @@ main {
   width: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--gray-2);
+  background: var(--red-1);
+
+  transition: background-color 0.5s ease-in-out;
 }
 
 .timer__title {
@@ -315,7 +317,7 @@ main {
   font-size: 1.5rem;
   color: var(--white);
   padding-bottom: 1.25rem;
-  border-bottom: 1.5px solid #cc6c6a;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.5);
 }
 
 .timer__digits-controls {
@@ -362,6 +364,8 @@ main {
   font-size: 2rem;
   height: 3.5rem;
   color: inherit;
+
+  transition: background-color 0.3s ease-in-out;
 }
 .timer__button:disabled {
   opacity: 0.6;
@@ -369,4 +373,13 @@ main {
 
 .timer__button:hover {
   cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.timer__mode-work {
+  background-color: var(--red-1);
+}
+
+.timer__mode-break {
+  background-color: var(--green-1);
 }
