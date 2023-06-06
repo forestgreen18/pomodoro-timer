@@ -16,7 +16,7 @@ let counter;
 let timer;
 
 const soundPlayer = new SoundPlayer();
-const timerElement = new TimerDisplay("time", 25);
+const timerElement = new TimerDisplay("time", 77);
 const timerMode = new TimerMode();
 
 const stopBtnController = new ElementToggler(stopBtn);
@@ -48,6 +48,7 @@ startBtn.addEventListener("click", () => {
     skipBtnController
   );
 
+  soundPlayer.playStart();
   timer.start();
 });
 
@@ -69,9 +70,11 @@ resumeBtn.addEventListener("click", () => {
 });
 
 doneBtn.addEventListener("click", () => {
+  soundPlayer.playModeChange();
   timer.done();
 });
 
 skipBtn.addEventListener("click", () => {
+  soundPlayer.playModeChange();
   timer.skip();
 });

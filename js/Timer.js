@@ -47,7 +47,6 @@ export class Timer {
   }
 
   pause() {
-    console.log(`timer mode`, this.timerMode.mode);
     if (this.timerMode.mode === WORK_MODE) {
       this.doneBtnController.show();
     }
