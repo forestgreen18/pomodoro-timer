@@ -9,6 +9,7 @@ export class Timer {
   #resumeBtnController;
   #doneBtnController;
   #skipBtnController;
+  #sessionCount;
 
   constructor(
     counter,
@@ -30,6 +31,7 @@ export class Timer {
     this.resumeBtnController = resumeBtnController;
     this.doneBtnController = doneBtnController;
     this.skipBtnController = skipBtnController;
+    this.sessionCount = 0;
   }
 
   start() {
@@ -72,6 +74,7 @@ export class Timer {
   }
 
   done() {
+    this.incrementSessionCount();
     this.timerMode.changeMode();
     this.timerDisplay.changeColor(this.timerMode.mode);
     this.timerDisplay.update(this.timerMode.getDefaultTime());
@@ -84,6 +87,7 @@ export class Timer {
   }
 
   skip() {
+    this.incrementSessionCount();
     this.timerMode.changeMode();
     this.timerDisplay.changeColor(this.timerMode.mode);
     this.timerDisplay.update(this.timerMode.getDefaultTime());
@@ -102,6 +106,10 @@ export class Timer {
     } else {
       this.skip();
     }
+  }
+
+  incrementSessionCount() {
+    this.sessionCount += 1;
   }
 
   get counter() {
@@ -136,6 +144,10 @@ export class Timer {
     return this.#skipBtnController;
   }
 
+  get sessionCount() {
+    return this.#sessionCount;
+  }
+
   set counter(counter) {
     this.#counter = counter;
   }
@@ -166,5 +178,9 @@ export class Timer {
 
   set skipBtnController(skipBtnController) {
     this.#skipBtnController = skipBtnController;
+  }
+
+  set sessionCount(count) {
+    return (this.#sessionCount = count);
   }
 }

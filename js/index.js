@@ -45,26 +45,29 @@ const skipBtnController = new ElementToggler(skipBtn);
 pauseBtnController.disable();
 
 startBtn.addEventListener("click", () => {
-  counter = new Counter(
-    timerMode.getNumberForMode,
-    timeFormatter,
-    (time) => timerDisplay.update(time),
-    () => timerDisplay.reset(),
-    () => timerMode.changeMode(),
-    () => timer.onCounterDone()
-  );
+  if (!timer) {
+    // add this line
+    counter = new Counter(
+      timerMode.getNumberForMode,
+      timeFormatter,
+      (time) => timerDisplay.update(time),
+      () => timerDisplay.reset(),
+      () => timerMode.changeMode(),
+      () => timer.onCounterDone()
+    );
 
-  timer = new Timer(
-    counter,
-    timerMode,
-    timerDisplay,
-    startBtnController,
-    stopBtnController,
-    pauseBtnController,
-    resumeBtnController,
-    doneBtnController,
-    skipBtnController
-  );
+    timer = new Timer(
+      counter,
+      timerMode,
+      timerDisplay,
+      startBtnController,
+      stopBtnController,
+      pauseBtnController,
+      resumeBtnController,
+      doneBtnController,
+      skipBtnController
+    );
+  }
 
   soundPlayer.playStart();
   timer.start();

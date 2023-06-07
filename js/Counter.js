@@ -90,7 +90,6 @@ export class Counter {
   skip() {
     this.stop();
     this.amountOfTime = this.amountOfWorkTime;
-    console.log("this.amountOfWorkTime", this.amountOfWorkTime);
   }
 
   #setTime(amountOfTime = 25) {
