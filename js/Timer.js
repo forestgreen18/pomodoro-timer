@@ -87,10 +87,6 @@ export class Timer {
     this.timerMode.changeMode();
     this.timerDisplay.changeColor(this.timerMode.mode);
     this.timerDisplay.update(this.timerMode.getDefaultTime());
-    console.log(
-      "this.timerMode.getDefaultTime()",
-      this.timerMode.getDefaultTime()
-    );
     this.counter.skip();
     this.startBtnController.show();
     this.stopBtnController.show();

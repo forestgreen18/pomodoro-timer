@@ -43,16 +43,16 @@ export class Counter {
     this.intervalID = setInterval(() => {
       const secondsLeft = this.secondsLeft;
 
-      if (secondsLeft <= 0) {
-        if (this.doneCallback) {
-          this.doneCallback();
-        }
-      }
-
       const time = this.timeFormatter.formatTime(secondsLeft);
 
       if (this.#updateCallback) {
         this.#updateCallback(time);
+      }
+
+      if (secondsLeft <= 0) {
+        if (this.doneCallback) {
+          this.doneCallback();
+        }
       }
     }, 1000);
   }
@@ -70,8 +70,7 @@ export class Counter {
     this.startTime = null;
     this.endTime = null;
     if (this.resetCallback) {
-      const time = this.timeFormatter.formatTime(this.secondsLeft);
-      this.resetCallback(time);
+      this.resetCallback();
     }
     this.#clearIntervalAndReset();
   }
@@ -91,6 +90,7 @@ export class Counter {
   skip() {
     this.stop();
     this.amountOfTime = this.amountOfWorkTime;
+    console.log("this.amountOfWorkTime", this.amountOfWorkTime);
   }
 
   #setTime(amountOfTime = 25) {
