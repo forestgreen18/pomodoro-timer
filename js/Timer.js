@@ -43,6 +43,7 @@ export class Timer {
 
   stop() {
     this.counter.stop();
+    this.timerDisplay.update(this.timerMode.getDefaultTime());
     this.startBtnController.show();
     this.stopBtnController.disable();
     this.pauseBtnController.hide();
@@ -70,10 +71,10 @@ export class Timer {
     this.pauseBtnController.show();
   }
 
-  async done() {
+  done() {
     this.timerMode.changeMode();
     this.timerDisplay.changeColor(this.timerMode.mode);
-    await this.timerDisplay.update(this.timerMode.getDefaultTime());
+    this.timerDisplay.update(this.timerMode.getDefaultTime());
     this.counter.done(this.timerMode.getNumberForMode);
     this.resumeBtnController.hide();
     this.pauseBtnController.show();
@@ -85,6 +86,11 @@ export class Timer {
   skip() {
     this.timerMode.changeMode();
     this.timerDisplay.changeColor(this.timerMode.mode);
+    this.timerDisplay.update(this.timerMode.getDefaultTime());
+    console.log(
+      "this.timerMode.getDefaultTime()",
+      this.timerMode.getDefaultTime()
+    );
     this.counter.skip();
     this.startBtnController.show();
     this.stopBtnController.show();

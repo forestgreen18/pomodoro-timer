@@ -16,13 +16,8 @@ export class TimerDisplay {
   }
 
   update(time) {
-    return new Promise((resolve) => {
-      this.timeElement = time;
-      this.defaultValue = time;
-      requestAnimationFrame(() => {
-        resolve();
-      });
-    });
+    this.timeElement = time;
+    this.defaultValue = time;
   }
 
   changeColor(mode) {
