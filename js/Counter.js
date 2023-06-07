@@ -49,10 +49,8 @@ export class Counter {
         }
       }
 
-      //   const minutes = Math.floor(secondsLeft / 60);
-      //   const seconds = secondsLeft % 60;
-
       const time = this.timeFormatter.formatTime(secondsLeft);
+
       if (this.#updateCallback) {
         this.#updateCallback(time);
       }
@@ -72,7 +70,8 @@ export class Counter {
     this.startTime = null;
     this.endTime = null;
     if (this.resetCallback) {
-      this.resetCallback();
+      const time = this.timeFormatter.formatTime(this.secondsLeft);
+      this.resetCallback(time);
     }
     this.#clearIntervalAndReset();
   }
@@ -123,6 +122,9 @@ export class Counter {
   }
 
   get secondsLeft() {
+    if (!this.endTime) {
+      return 0;
+    }
     const timeRemaining = this.endTime.getTime() - this.currentTime.getTime();
     const secondsRemaining = Math.round(timeRemaining / 1000);
 

@@ -70,9 +70,10 @@ export class Timer {
     this.pauseBtnController.show();
   }
 
-  done() {
+  async done() {
     this.timerMode.changeMode();
     this.timerDisplay.changeColor(this.timerMode.mode);
+    await this.timerDisplay.update(this.timerMode.getDefaultTime());
     this.counter.done(this.timerMode.getNumberForMode);
     this.resumeBtnController.hide();
     this.pauseBtnController.show();

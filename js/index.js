@@ -17,10 +17,8 @@ const timeFormatter = new TimeFormatter();
 let counter;
 let timer;
 
-
 const soundPlayer = new SoundPlayer();
 const timerElement = new TimerDisplay("time", 77);
-const timerMode = new TimerMode();
 
 let timerMode;
 let timerDisplay;
@@ -36,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // update the timer display with the default time value
   timerDisplay.reset();
 });
-
 
 const stopBtnController = new ElementToggler(stopBtn);
 const startBtnController = new ElementToggler(startBtn);
