@@ -12,6 +12,7 @@ const stopBtn = document.querySelector("#btn-stop");
 const resumeBtn = document.querySelector("#btn-resume");
 const doneBtn = document.querySelector("#btn-done");
 const skipBtn = document.querySelector("#btn-skip");
+const muteBtn = document.querySelector("#timer__mute-sound-btn");
 
 const timeFormatter = new TimeFormatter();
 let counter;
@@ -29,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "timer__box",
     "timer__mode",
     "timer__main",
+    "timer__mute-sound-btn",
     timerMode.getDefaultTime()
   );
 
@@ -99,4 +101,15 @@ doneBtn.addEventListener("click", () => {
 skipBtn.addEventListener("click", () => {
   soundPlayer.playModeChange();
   timer.skip();
+});
+
+muteBtn.addEventListener("click", () => {
+  soundPlayer.toggleMute();
+  const isMuted = soundPlayer.isMuted;
+
+  if (isMuted) {
+    timerDisplay.updateMuteSoundBtn(true);
+  } else {
+    timerDisplay.updateMuteSoundBtn(false);
+  }
 });

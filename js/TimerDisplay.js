@@ -6,6 +6,8 @@ export class TimerDisplay {
   #timerModeElement;
   #timerBoxElement;
   #timerMainBlock;
+  #muteSoundBtnElement;
+
   #defaultValue;
 
   constructor(
@@ -13,11 +15,13 @@ export class TimerDisplay {
     timerBoxElementId,
     timerModeElementId,
     timerMainBlockId,
+    muteSoundBtnElementId,
     defaultValue
   ) {
     this.#timeElement = document.getElementById(timeElementId);
     this.#timerModeElement = document.getElementById(timerModeElementId);
     this.#timerMainBlock = document.getElementById(timerMainBlockId);
+    this.#muteSoundBtnElement = document.getElementById(muteSoundBtnElementId); // add this line
     this.timerBoxElement = document.getElementById(timerBoxElementId);
     this.defaultValue = defaultValue;
   }
@@ -42,6 +46,16 @@ export class TimerDisplay {
       this.#changeToLongBreakColor();
     } else {
       this.#changeToShortBreakColor();
+    }
+  }
+
+  updateMuteSoundBtn(isMuted) {
+    if (isMuted) {
+      this.#muteSoundBtnElement.classList.add("muted");
+      this.#muteSoundBtnElement.classList.remove("unmuted");
+    } else {
+      this.#muteSoundBtnElement.classList.add("unmuted");
+      this.#muteSoundBtnElement.classList.remove("muted");
     }
   }
 
