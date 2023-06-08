@@ -17,10 +17,8 @@ const timeFormatter = new TimeFormatter();
 let counter;
 let timer;
 
-
 const soundPlayer = new SoundPlayer();
 const timerElement = new TimerDisplay("time", 77);
-const timerMode = new TimerMode();
 
 let timerMode;
 let timerDisplay;
@@ -30,13 +28,13 @@ document.addEventListener("DOMContentLoaded", () => {
   timerDisplay = new TimerDisplay(
     "time",
     "timer__box",
+    "timer__mode",
     timerMode.getDefaultTime()
   );
 
   // update the timer display with the default time value
   timerDisplay.reset();
 });
-
 
 const stopBtnController = new ElementToggler(stopBtn);
 const startBtnController = new ElementToggler(startBtn);
@@ -48,26 +46,29 @@ const skipBtnController = new ElementToggler(skipBtn);
 pauseBtnController.disable();
 
 startBtn.addEventListener("click", () => {
-  counter = new Counter(
-    timerMode.getNumberForMode,
-    timeFormatter,
-    (time) => timerDisplay.update(time),
-    () => timerDisplay.reset(),
-    () => timerMode.changeMode(),
-    () => timer.onCounterDone()
-  );
+  if (!timer) {
+    // add this line
+    counter = new Counter(
+      timerMode.getNumberForMode,
+      timeFormatter,
+      (time) => timerDisplay.update(time),
+      () => timerDisplay.reset(),
+      () => timerMode.changeMode(),
+      () => timer.onCounterDone()
+    );
 
-  timer = new Timer(
-    counter,
-    timerMode,
-    timerDisplay,
-    startBtnController,
-    stopBtnController,
-    pauseBtnController,
-    resumeBtnController,
-    doneBtnController,
-    skipBtnController
-  );
+    timer = new Timer(
+      counter,
+      timerMode,
+      timerDisplay,
+      startBtnController,
+      stopBtnController,
+      pauseBtnController,
+      resumeBtnController,
+      doneBtnController,
+      skipBtnController
+    );
+  }
 
   soundPlayer.playStart();
   timer.start();

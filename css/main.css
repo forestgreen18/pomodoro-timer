@@ -312,12 +312,19 @@ main {
   transition: background-color 0.5s ease-in-out;
 }
 
-.timer__title {
+.timer__header {
+  display: flex;
+  justify-content: space-between;
+
+  padding-bottom: 0.7rem;
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.5);
+}
+
+.timer__title,
+.timer__mode {
   text-align: left;
   font-size: 1.5rem;
   color: var(--white);
-  padding-bottom: 1.25rem;
-  border-bottom: 1.5px solid rgba(255, 255, 255, 0.5);
 }
 
 .timer__digits-controls {

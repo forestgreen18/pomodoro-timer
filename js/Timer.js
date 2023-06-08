@@ -9,6 +9,7 @@ export class Timer {
   #resumeBtnController;
   #doneBtnController;
   #skipBtnController;
+  #sessionCount;
 
   constructor(
     counter,
@@ -30,6 +31,7 @@ export class Timer {
     this.resumeBtnController = resumeBtnController;
     this.doneBtnController = doneBtnController;
     this.skipBtnController = skipBtnController;
+    this.sessionCount = 0;
   }
 
   start() {
@@ -43,6 +45,7 @@ export class Timer {
 
   stop() {
     this.counter.stop();
+    this.timerDisplay.update(this.timerMode.getDefaultTime());
     this.startBtnController.show();
     this.stopBtnController.disable();
     this.pauseBtnController.hide();
@@ -71,9 +74,12 @@ export class Timer {
   }
 
   done() {
+    this.incrementSessionCount();
     this.timerMode.changeMode();
     this.timerDisplay.changeColor(this.timerMode.mode);
+    this.timerDisplay.update(this.timerMode.getDefaultTime());
     this.counter.done(this.timerMode.getNumberForMode);
+    this.timerDisplay.updateTimerMode(this.timerMode.mode);
     this.resumeBtnController.hide();
     this.pauseBtnController.show();
     this.stopBtnController.hide();
@@ -82,9 +88,12 @@ export class Timer {
   }
 
   skip() {
+    this.incrementSessionCount();
     this.timerMode.changeMode();
     this.timerDisplay.changeColor(this.timerMode.mode);
+    this.timerDisplay.update(this.timerMode.getDefaultTime());
     this.counter.skip();
+    this.timerDisplay.updateTimerMode(this.timerMode.mode);
     this.startBtnController.show();
     this.stopBtnController.show();
     this.stopBtnController.disable();
@@ -99,6 +108,10 @@ export class Timer {
     } else {
       this.skip();
     }
+  }
+
+  incrementSessionCount() {
+    this.sessionCount += 1;
   }
 
   get counter() {
@@ -133,6 +146,10 @@ export class Timer {
     return this.#skipBtnController;
   }
 
+  get sessionCount() {
+    return this.#sessionCount;
+  }
+
   set counter(counter) {
     this.#counter = counter;
   }
@@ -163,5 +180,9 @@ export class Timer {
 
   set skipBtnController(skipBtnController) {
     this.#skipBtnController = skipBtnController;
+  }
+
+  set sessionCount(count) {
+    return (this.#sessionCount = count);
   }
 }

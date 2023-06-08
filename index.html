@@ -13,6 +13,7 @@
 
     <link rel="manifest" href="site.webmanifest" />
     <link rel="apple-touch-icon" href="icon.png" />
+    <link rel="icon" href="/favicon.png" />
 
     <link rel="stylesheet" href="css/variables.css" />
     <link rel="stylesheet" href="css/normalize.css" />
@@ -27,9 +28,12 @@
       <div class="wrapper">
         <section class="timer">
           <div class="timer__box" id="timer__box">
-            <h3 class="timer__title">Pomodoro Timer</h3>
+            <div class="timer__header">
+              <h3 class="timer__title">Pomodoro Timer</h3>
+              <h3 class="timer__mode" id="timer__mode">Work</h3>
+            </div>
             <div class="timer__digits-controls">
-              <span class="timer__time" id="time"> 25:00 </span>
+              <span class="timer__time" id="time">25:00 </span>
               <div class="timer__buttons">
                 <button
                   class="timer__button time__button-resume"

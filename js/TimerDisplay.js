@@ -1,12 +1,20 @@
 import { WORK_MODE } from "./TimerMode";
+import { ModeFormatter } from "./utils/ModeFormatter";
 
 export class TimerDisplay {
   #timeElement;
+  #timerModeElement;
   #timerBoxElement;
   #defaultValue;
 
-  constructor(timeElementId, timerBoxElementId, defaultValue) {
+  constructor(
+    timeElementId,
+    timerBoxElementId,
+    timerModeElementId,
+    defaultValue
+  ) {
     this.#timeElement = document.getElementById(timeElementId);
+    this.#timerModeElement = document.getElementById(timerModeElementId);
     this.timerBoxElement = document.getElementById(timerBoxElementId);
     this.defaultValue = defaultValue;
   }
@@ -17,6 +25,11 @@ export class TimerDisplay {
 
   update(time) {
     this.timeElement = time;
+    this.defaultValue = time;
+  }
+
+  updateTimerMode(mode) {
+    this.timerModeElement = ModeFormatter.format(mode);
   }
 
   changeColor(mode) {
@@ -55,5 +68,9 @@ export class TimerDisplay {
 
   set defaultValue(defaultValue) {
     this.#defaultValue = defaultValue;
+  }
+
+  set timerModeElement(value) {
+    this.#timerModeElement.textContent = value;
   }
 }
