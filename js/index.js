@@ -18,7 +18,6 @@ let counter;
 let timer;
 
 const soundPlayer = new SoundPlayer();
-const timerElement = new TimerDisplay("time", 77);
 
 let timerMode;
 let timerDisplay;
@@ -29,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "time",
     "timer__box",
     "timer__mode",
+    "timer__main",
     timerMode.getDefaultTime()
   );
 
