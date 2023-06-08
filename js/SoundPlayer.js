@@ -1,6 +1,6 @@
-import buttonClickSound from "/audio/click_sound.mp3";
-import modeChangeSound from "/audio/time_is_over.mp3";
-import startSound from "/audio/start_button_sound.mp3";
+import buttonClickSound from "/assets/audio/click_sound.mp3";
+import modeChangeSound from "/assets/audio/time_is_over.mp3";
+import startSound from "/assets/audio/start_button_sound.mp3";
 
 export class SoundPlayer {
   #buttonClickSound;
