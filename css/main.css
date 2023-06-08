@@ -315,6 +315,7 @@ main {
 .timer__header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   padding-bottom: 0.7rem;
   border-bottom: 1.5px solid rgba(255, 255, 255, 0.5);
@@ -325,6 +326,12 @@ main {
   text-align: left;
   font-size: 1.5rem;
   color: var(--white);
+}
+
+.timer__mode {
+  background: var(--dark-transparent);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
 }
 
 .timer__digits-controls {
