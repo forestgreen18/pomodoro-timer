@@ -64,6 +64,38 @@
             </div>
           </div>
         </section>
+        <section class="todo">
+          <h2>Todo List</h2>
+          <div class="todo__input-container">
+            <input
+              type="text"
+              class="todo__input"
+              id="todoInput"
+              placeholder="Enter a new to-do"
+            />
+            <button class="todo__add-button" id="addButton">Add</button>
+          </div>
+          <ul class="todo__list" id="todoList">
+            <li class="todo__item">
+              <input type="checkbox" class="todo__checkbox" />
+              <span class="todo__text">Sample to-do</span>
+              <button class="todo__delete-button">Delete</button>
+            </li>
+            <li class="todo__item">
+              <input type="checkbox" class="todo__checkbox" />
+              <span class="todo__text">Sample to-do</span>
+              <button class="todo__delete-button">Delete</button>
+            </li>
+          </ul>
+          <div class="todo__buttons-container">
+            <button class="todo__clear-done-button" id="clearDoneButton">
+              Clear Done
+            </button>
+            <button class="todo__clear-all-button" id="clearAllButton">
+              Clear All
+            </button>
+          </div>
+        </section>
       </div>
     </main>
 
