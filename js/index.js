@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   timerDisplay = new TimerDisplay(
     "time",
     "timer__box",
+    "timer__mode",
     timerMode.getDefaultTime()
   );
 

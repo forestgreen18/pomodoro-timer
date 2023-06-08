@@ -79,6 +79,7 @@ export class Timer {
     this.timerDisplay.changeColor(this.timerMode.mode);
     this.timerDisplay.update(this.timerMode.getDefaultTime());
     this.counter.done(this.timerMode.getNumberForMode);
+    this.timerDisplay.updateTimerMode(this.timerMode.mode);
     this.resumeBtnController.hide();
     this.pauseBtnController.show();
     this.stopBtnController.hide();
@@ -92,6 +93,7 @@ export class Timer {
     this.timerDisplay.changeColor(this.timerMode.mode);
     this.timerDisplay.update(this.timerMode.getDefaultTime());
     this.counter.skip();
+    this.timerDisplay.updateTimerMode(this.timerMode.mode);
     this.startBtnController.show();
     this.stopBtnController.show();
     this.stopBtnController.disable();
