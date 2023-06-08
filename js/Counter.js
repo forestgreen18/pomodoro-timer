@@ -1,3 +1,5 @@
+import { TimeFormatter } from "./utils/TimeFormatter";
+
 export class Counter {
   static instance;
 
@@ -12,7 +14,6 @@ export class Counter {
 
   constructor(
     amountOfTime = 25,
-    timeFormatter,
     updateCallback,
     resetCallback,
     modeChangeCallback,
@@ -25,7 +26,6 @@ export class Counter {
     this.amountOfTime = amountOfTime;
     this.amountOfWorkTime = amountOfTime;
     this.doneCallback = doneCallback;
-    this.timeFormatter = timeFormatter;
     this.endTime = new Date(
       this.startTime.getTime() + this.amountOfTime * 60 * 1000
     );
@@ -43,7 +43,7 @@ export class Counter {
     this.intervalID = setInterval(() => {
       const secondsLeft = this.secondsLeft;
 
-      const time = this.timeFormatter.formatTime(secondsLeft);
+      const time = TimeFormatter.formatTime(secondsLeft);
 
       if (this.#updateCallback) {
         this.#updateCallback(time);
