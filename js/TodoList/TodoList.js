@@ -9,7 +9,9 @@ export class TodoList {
     this.todos.push(todoItem);
   }
 
-  //   deleteTodoItem(todoItemID) {}
+  deleteTodoItem(todoItemID) {
+    this.todos = this.todos.filter((todo) => todo.id !== Number(todoItemID));
+  }
 
   get todoItems() {
     return this.todos;

@@ -8,6 +8,7 @@ const todoList = new TodoList();
 
 const todoInput = document.querySelector("#todoInput");
 const todoAddBtn = document.querySelector("#addButton");
+const todoListElement = document.querySelector("#todoList");
 
 todoAddBtn.addEventListener("click", () => {
   soundPlayer.playButtonClick();
@@ -18,4 +19,15 @@ todoAddBtn.addEventListener("click", () => {
 
   TodoView.renderTodos(todoList.todoItems);
   console.log(todoList.todoItems);
+});
+
+todoListElement.addEventListener("click", (event) => {
+  if (event.target.classList.contains("todo__delete-button")) {
+    const todoItem = event.target.closest(".todo__item");
+    const todoItemId = todoItem.getAttribute("id");
+    todoList.deleteTodoItem(todoItemId);
+    TodoView.renderTodos(todoList.todoItems);
+    console.log(todoItemId);
+    console.log(todoList.todoItems);
+  }
 });
