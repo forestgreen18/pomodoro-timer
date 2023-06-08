@@ -60,18 +60,21 @@ export class TimerDisplay {
   }
 
   #changeToWorkColor() {
-    this.timerMainBlock.classList.add("timer__mode-work");
     this.timerMainBlock.classList.remove("timer__mode-short-break");
+    this.timerMainBlock.classList.remove("timer__mode-long-break");
+    this.timerMainBlock.classList.add("timer__mode-work");
   }
 
   #changeToShortBreakColor() {
-    this.timerMainBlock.classList.add("timer__mode-short-break");
     this.timerMainBlock.classList.remove("timer__mode-work");
+    this.timerMainBlock.classList.remove("timer__mode-long-break");
+    this.timerMainBlock.classList.add("timer__mode-short-break");
   }
 
   #changeToLongBreakColor() {
-    this.timerMainBlock.classList.add("timer__mode-long-break");
     this.timerMainBlock.classList.remove("timer__mode-work");
+    this.timerMainBlock.classList.remove("timer__mode-short-break");
+    this.timerMainBlock.classList.add("timer__mode-long-break");
   }
 
   get defaultValue() {

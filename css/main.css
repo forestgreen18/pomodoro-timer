@@ -413,7 +413,7 @@ main {
   background-color: var(--denim) !important;
 }
 
-.timer__mode-short-break .timer__button {
+.timer__mode-long-break .timer__button {
   color: var(--denim);
 }
 
