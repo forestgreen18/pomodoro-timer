@@ -6,6 +6,8 @@ export class TimerDisplay {
   #timerModeElement;
   #timerBoxElement;
   #timerMainBlock;
+  #muteSoundBtnElement;
+
   #defaultValue;
 
   constructor(
@@ -13,11 +15,13 @@ export class TimerDisplay {
     timerBoxElementId,
     timerModeElementId,
     timerMainBlockId,
+    muteSoundBtnElementId,
     defaultValue
   ) {
     this.#timeElement = document.getElementById(timeElementId);
     this.#timerModeElement = document.getElementById(timerModeElementId);
     this.#timerMainBlock = document.getElementById(timerMainBlockId);
+    this.#muteSoundBtnElement = document.getElementById(muteSoundBtnElementId); // add this line
     this.timerBoxElement = document.getElementById(timerBoxElementId);
     this.defaultValue = defaultValue;
   }
@@ -45,19 +49,32 @@ export class TimerDisplay {
     }
   }
 
+  updateMuteSoundBtn(isMuted) {
+    if (isMuted) {
+      this.#muteSoundBtnElement.classList.add("muted");
+      this.#muteSoundBtnElement.classList.remove("unmuted");
+    } else {
+      this.#muteSoundBtnElement.classList.add("unmuted");
+      this.#muteSoundBtnElement.classList.remove("muted");
+    }
+  }
+
   #changeToWorkColor() {
-    this.timerMainBlock.classList.add("timer__mode-work");
     this.timerMainBlock.classList.remove("timer__mode-short-break");
+    this.timerMainBlock.classList.remove("timer__mode-long-break");
+    this.timerMainBlock.classList.add("timer__mode-work");
   }
 
   #changeToShortBreakColor() {
-    this.timerMainBlock.classList.add("timer__mode-short-break");
     this.timerMainBlock.classList.remove("timer__mode-work");
+    this.timerMainBlock.classList.remove("timer__mode-long-break");
+    this.timerMainBlock.classList.add("timer__mode-short-break");
   }
 
   #changeToLongBreakColor() {
-    this.timerMainBlock.classList.add("timer__mode-long-break");
     this.timerMainBlock.classList.remove("timer__mode-work");
+    this.timerMainBlock.classList.remove("timer__mode-short-break");
+    this.timerMainBlock.classList.add("timer__mode-long-break");
   }
 
   get defaultValue() {

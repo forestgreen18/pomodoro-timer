@@ -413,6 +413,36 @@ main {
   background-color: var(--denim) !important;
 }
 
-.timer__mode-short-break .timer__button {
+.timer__mode-long-break .timer__button {
   color: var(--denim);
+}
+
+.timer__header-controls {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+#timer__mute-sound-btn {
+  background: none;
+  border: none;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+#timer__mute-sound-btn:hover {
+  cursor: pointer;
+}
+
+.unmuted {
+  background-image: url("/assets/images/volume_on.png") !important;
+}
+
+.muted {
+  background-image: url("/assets/images/volume_off.png") !important;
 }

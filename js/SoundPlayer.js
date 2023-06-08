@@ -6,6 +6,7 @@ export class SoundPlayer {
   #buttonClickSound;
   #modeChangeSound;
   #startSound;
+  #isMuted = false;
 
   constructor() {
     this.buttonClickSound = new Audio(buttonClickSound);
@@ -25,6 +26,10 @@ export class SoundPlayer {
     return this.#modeChangeSound;
   }
 
+  get isMuted() {
+    return this.#isMuted;
+  }
+
   set modeChangeSound(value) {
     this.#modeChangeSound = value;
   }
@@ -37,6 +42,10 @@ export class SoundPlayer {
     this.#startSound = value;
   }
 
+  set isMuted(value) {
+    this.isMuted = value;
+  }
+
   playButtonClick() {
     this.buttonClickSound.play();
   }
@@ -47,5 +56,27 @@ export class SoundPlayer {
 
   playStart() {
     this.startSound.play();
+  }
+
+  mute() {
+    this.#isMuted = true;
+    this.buttonClickSound.volume = 0;
+    this.modeChangeSound.volume = 0;
+    this.startSound.volume = 0;
+  }
+
+  unmute() {
+    this.#isMuted = false;
+    this.buttonClickSound.volume = 1;
+    this.modeChangeSound.volume = 1;
+    this.startSound.volume = 1;
+  }
+
+  toggleMute() {
+    if (this.#isMuted) {
+      this.unmute();
+    } else {
+      this.mute();
+    }
   }
 }
