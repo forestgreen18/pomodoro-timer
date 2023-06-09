@@ -1,10 +1,16 @@
 {
   "name": "pomodoro-app",
   "version": "0.0.1",
-  "description": "",
-  "keywords": "podomoro",
+  "description": "A web app that allows you to work efficiently using the Pomodoro timer technique. Work and rest in several intervals to enhance productivity and concentration.",
+  "keywords": [
+    "pomodoro",
+    "timer",
+    "productivity",
+    "concentration",
+    "web app"
+  ],
   "license": "MIT",
-  "author": "",
+  "author": "Illia Kornyk",
   "scripts": {
     "build": "parcel build index.html",
     "dev": "parcel index.html --open",

@@ -10,6 +10,11 @@ The project is written in JavaScript using the OOP paradigm. Each separate entit
 
 ## Project Structure
 
+### HTML
+
+- `index.html`: Contains all markup for the Pomodoro timer
+- `404.html`: Page displayed for unfound pages
+
 ### CSS
 
 - `fonts.css`: Contains font styles
