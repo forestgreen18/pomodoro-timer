@@ -1,3 +1,5 @@
+import { TimeFormatter } from "./utils/TimeFormatter";
+
 export const WORK_MODE = "work";
 export const SHORT_BREAK_MODE = "shortBreak";
 export const LONG_BREAK_MODE = "longBreak";
@@ -5,13 +7,12 @@ export class TimerMode {
   #mode;
   #timerOrder = 1;
 
-  constructor(timeFormatter, mode = "work") {
+  constructor(mode = "work") {
     if (TimerMode.instance instanceof TimerMode) {
       return TimerMode.instance;
     }
 
     this.mode = mode;
-    this.timeFormatter = timeFormatter;
 
     Object.freeze(this.#mode);
     Object.freeze(this);
@@ -30,7 +31,7 @@ export class TimerMode {
   }
 
   #formatTime(timeInSeconds) {
-    return this.timeFormatter.formatTime(timeInSeconds);
+    return TimeFormatter.formatTime(timeInSeconds);
   }
 
   #work() {

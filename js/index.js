@@ -4,7 +4,6 @@ import { TimerMode } from "./TimerMode";
 import { TimerDisplay } from "./TimerDisplay";
 import { Timer } from "./Timer";
 import { SoundPlayer } from "./SoundPlayer";
-import { TimeFormatter } from "./TimeFormatter";
 
 const startBtn = document.querySelector("#btn-start");
 const pauseBtn = document.querySelector("#btn-pause");
@@ -14,7 +13,6 @@ const doneBtn = document.querySelector("#btn-done");
 const skipBtn = document.querySelector("#btn-skip");
 const muteBtn = document.querySelector("#timer__mute-sound-btn");
 
-const timeFormatter = new TimeFormatter();
 let counter;
 let timer;
 
@@ -24,7 +22,7 @@ let timerMode;
 let timerDisplay;
 
 document.addEventListener("DOMContentLoaded", () => {
-  timerMode = new TimerMode(timeFormatter);
+  timerMode = new TimerMode();
   timerDisplay = new TimerDisplay(
     "time",
     "timer__box",
@@ -52,7 +50,6 @@ startBtn.addEventListener("click", () => {
     // add this line
     counter = new Counter(
       timerMode.getNumberForMode,
-      timeFormatter,
       (time) => timerDisplay.update(time),
       () => timerDisplay.reset(),
       () => timerMode.changeMode(),
