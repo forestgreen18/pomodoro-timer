@@ -1,9 +1,9 @@
 {
-  "name": " ",
+  "name": "pomodoro-app",
   "version": "0.0.1",
   "description": "",
-  "keywords": "",
-  "license": "",
+  "keywords": "podomoro",
+  "license": "MIT",
   "author": "",
   "scripts": {
     "build": "parcel build index.html",
@@ -12,6 +12,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.4"
+    "eslint": "^8.42.0",
+    "htmlhint": "^1.1.4",
+    "parcel-bundler": "^1.12.4",
+    "stylelint": "^15.7.0",
+    "stylelint-config-standard": "^33.0.0"
   }
 }
